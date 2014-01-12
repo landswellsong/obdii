@@ -31,6 +31,14 @@ class Obdii(object):
             raise UnexpectedDataValue
 
         return data[0] - 40
+    
+    def get_current_engine_load(self):
+        data = self._get_response([0x01, 0x05])
+        
+        if len(data) != 1:
+            raise UnexpectedDataValue
+
+        return data[0]*100/255
 
     def get_current_engine_rpm(self):
         data = self._get_response([0x01, 0x0C])
