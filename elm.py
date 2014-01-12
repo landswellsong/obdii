@@ -8,7 +8,8 @@ class Elm(object):
     AT_PREFIX = 'AT'
 
     PROMPT_REGEX = re.compile(">", re.M)
-    RESPONSE_REGEX = re.compile("^.*?[\r]+(.*)\r\r>$", re.M)
+    RESPONSE_REGEX = re.compile("^.*?[\r\n]+(.*)[\r\n]+>$", re.M) 
+    #RESPONSE_REGEX = re.compile("^.*?[\r]+(.*)\r\r>$", re.M)
 
     def __init__(self, interface, baud=None):
         if not hasattr(interface, 'read'):
@@ -38,7 +39,7 @@ class Elm(object):
         self._check_reset(response)
 
     def _check_reset(self, response):
-        if response != "ELM327 v1.3a":
+        if not response.find("ELM327"):
             print 'received: ' + response
             raise Exception
 
