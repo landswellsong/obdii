@@ -64,7 +64,7 @@ class Elm(object):
             data = data + self.interface.read(1)
             #print data
 
-        print >>sys.stderr, '<<' + data.replace('\r', '\\r').replace('\n', '\\n')
+        print >>sys.stderr, '<< ' + data.replace('\r', '\\r').replace('\n', '\\n')
         return self.RESPONSE_REGEX.search(data).group(1)
 
 
