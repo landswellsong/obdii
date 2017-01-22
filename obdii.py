@@ -24,7 +24,7 @@ class Obdii(object):
 
         return data
       
-    def _get_response_ext(self, command)
+    def _get_response_ext(self, command):
         data = self._get_response(command)
         
         if len(data) != 1:
