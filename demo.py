@@ -20,7 +20,7 @@ def main():
         spd = obd.get_vehicle_speed()
         ect = obd.get_current_ect()
 
-        print "%d, %d, %d, %d, %d, %d, %d" % (time.clock(), tmp, prs, eld, rpm, spd, ect)
+        print "%.6f, %d, %d, %d, %d, %d, %d" % (time.clock(), tmp, prs, eld, rpm, spd, ect)
         time.sleep(interval)
 
 
