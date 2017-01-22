@@ -9,12 +9,18 @@ def main():
 
     adapter = elm.Elm(port)
     obd = obdii.Obdii(adapter)
+    
+    print 'UNIX time, Intake Temperature, Intake Pressure, Engine load, Engine RPM'
 
     while True:
+        tmp = obd.get_current_intake_air_temp()
+        prs = obd.get_current_intake_air_pressure()
+        eld = obd.get_current_engine_load()
         rpm = obd.get_current_engine_rpm()
+        spd = obd.get_vehicle_speed()
         ect = obd.get_current_ect()
 
-        print "RPM: %d rpm, ECT: %d C" % (rpm, ect)
+        print "%d, %d, %d, %d, %d, %d, %d" % (time.clock(), tmp, prs, eld, rpm, spd, ect)
         time.sleep(interval)
 
 
