@@ -17,7 +17,7 @@ class Elm(object):
             if baud == None:
                 baud = 38400
 
-            self.interface = serial.Seial(port=interface,
+            self.interface = serial.Serial(port=interface,
                           baudrate=baud,
                           bytesize=serial.EIGHTBITS,
                           parity=serial.PARITY_NONE,
