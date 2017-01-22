@@ -1,6 +1,7 @@
 import serial
 import re
 import time
+import sys
 
 class Elm(object):
     PROMPT = ">"
@@ -10,13 +11,13 @@ class Elm(object):
     PROMPT_REGEX = re.compile(">", re.M)
     RESPONSE_REGEX = re.compile("^.*?[\r\n]+(.*)[\r\n]+>$", re.M) 
     #RESPONSE_REGEX = re.compile("^.*?[\r]+(.*)\r\r>$", re.M)
-
+    
     def __init__(self, interface, baud=None):
         if not hasattr(interface, 'read'):
             if baud == None:
                 baud = 38400
 
-            self.interface = serial.Serial(port=interface,
+            self.interface = serial.Sreial(port=interface,
                           baudrate=baud,
                           bytesize=serial.EIGHTBITS,
                           parity=serial.PARITY_NONE,
@@ -56,13 +57,14 @@ class Elm(object):
     def send(self, command):
         data = ""
 
+        print >>sys.stderr, '>> ' + command
         self.interface.write(command + self.LINE_TERMINATION)
 
         while not self.PROMPT_REGEX.search(data):
             data = data + self.interface.read(1)
             #print data
 
-        print 'data read: ' + data.replace('\r', '\n')
+        print >>sys.stderr, '<<' + data.replace('\r', '\\r').replace('\n', '\\n')
         return self.RESPONSE_REGEX.search(data).group(1)
 
 
