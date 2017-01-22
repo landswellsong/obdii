@@ -38,7 +38,7 @@ class Obdii(object):
         return data[0] - 40
     
     def get_current_engine_load(self):
-        data = self._get_response_ext([0x01, 0x05], 1)
+        data = self._get_response_ext([0x01, 0x04], 1)
         return data[0]*100/255
 
     def get_current_engine_rpm(self):
