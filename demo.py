@@ -5,6 +5,7 @@ import time
 
 def main():
     port = sys.argv[1]
+    interval = sys.argv[2] and float(sys.argv[2]) or 1.0
 
     adapter = elm.Elm(port)
     obd = obdii.Obdii(adapter)
@@ -14,7 +15,7 @@ def main():
         ect = obd.get_current_ect()
 
         print "RPM: %d rpm, ECT: %d C" % (rpm, ect)
-        time.sleep(1)
+        time.sleep(interval)
 
 
 if __name__ == '__main__':
