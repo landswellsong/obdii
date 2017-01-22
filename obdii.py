@@ -23,47 +23,48 @@ class Obdii(object):
         data = self._parse_response_data(command, response)
 
         return data
-
-    def get_current_ect(self):
-        data = self._get_response([0x01, 0x05])
-
-        if len(data) != 1:
-            raise UnexpectedDataValue
-
-        return data[0] - 40
-    
-    def get_current_engine_load(self):
-        data = self._get_response([0x01, 0x05])
+      
+    def _get_response_ext(self, command)
+        data = self._get_response(command)
         
         if len(data) != 1:
             raise UnexpectedDataValue
+          
+        return data
+        
 
+    def get_current_ect(self):
+        data = self._get_response_ext([0x01, 0x05])
+        return data[0] - 40
+    
+    def get_current_engine_load(self):
+        data = self._get_response_ext([0x01, 0x05])
         return data[0]*100/255
 
     def get_current_engine_rpm(self):
-        data = self._get_response([0x01, 0x0C])
-
-        if len(data) != 2:
-            raise UnexpectedDataValue
-
+        data = self._get_response_ext([0x01, 0x0C])
         return ((data[0] << 8) + (data[1])) / 4
 
     def get_vehicle_speed(self):
-        data = self._get_response([0x01, 0x0D])
-
-        if len(data) != 1:
-            raise UnexpectedDataValue
-
+        data = self._get_response_ext([0x01, 0x0D])
         return data[0]
 
     def get_throttle_position(self):
-        data = self._get_response([0x01, 0x11])
-
-        if len(data) != 1:
-            raise UnexpectedDataValue
-
+        data = self._get_response_ext([0x01, 0x11])
         return (data[0] * 100.0) / 255
-
+      
+    def get_current_intake_air_temp(self):
+        data = self._get_response_ext([0x01, 0x0F])
+        return data[0] - 40
+      
+    def get_current_intake_air_pressure(self):
+        data = self._get_response_ext([0x01, 0x0B])
+        return data[0]
+      
+    def get_current_intake_air_mass_rate(self):
+        data = self._get_response_ext([0x01, 0x10])
+        return ((data[0] << 8)  + data[1]) / 100
+        
     def _parse_response_data(self, command, response):
         #command = command.strip()
         #cmd = [int(command[i:i + 2], 16) for i in range(0, len(command), 2)]
