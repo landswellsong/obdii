@@ -5,7 +5,7 @@ import time
 
 def main():
     port = sys.argv[1]
-    interval = sys.argv[2] and float(sys.argv[2]) or 1.0
+    interval = len(sys.argv) > 2 and float(sys.argv[2]) or 1.0
 
     adapter = elm.Elm(port)
     obd = obdii.Obdii(adapter)
