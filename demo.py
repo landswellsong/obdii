@@ -10,7 +10,7 @@ def main():
     adapter = elm.Elm(port)
     obd = obdii.Obdii(adapter)
     
-    print 'UNIX time, Intake Temperature, Intake Pressure, Engine load, Engine RPM'
+    print 'UNIX time, Intake Temperature, Intake Pressure, Engine load, Engine RPM, Vehicle Speed, Coolant Temperature'
 
     while True:
         tmp = obd.get_current_intake_air_temp()
