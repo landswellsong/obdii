@@ -24,45 +24,45 @@ class Obdii(object):
 
         return data
       
-    def _get_response_ext(self, command):
+    def _get_response_ext(self, command, expectedlen)
         data = self._get_response(command)
         
-        if len(data) != 1:
+        if len(data) != expectedlen:
             raise UnexpectedDataValue
           
         return data
         
 
     def get_current_ect(self):
-        data = self._get_response_ext([0x01, 0x05])
+        data = self._get_response_ext([0x01, 0x05], 1)
         return data[0] - 40
     
     def get_current_engine_load(self):
-        data = self._get_response_ext([0x01, 0x05])
+        data = self._get_response_ext([0x01, 0x05], 1)
         return data[0]*100/255
 
     def get_current_engine_rpm(self):
-        data = self._get_response_ext([0x01, 0x0C])
+        data = self._get_response_ext([0x01, 0x0C], 2)
         return ((data[0] << 8) + (data[1])) / 4
 
     def get_vehicle_speed(self):
-        data = self._get_response_ext([0x01, 0x0D])
+        data = self._get_response_ext([0x01, 0x0D], 1)
         return data[0]
 
     def get_throttle_position(self):
-        data = self._get_response_ext([0x01, 0x11])
+        data = self._get_response_ext([0x01, 0x11], 1)
         return (data[0] * 100.0) / 255
       
     def get_current_intake_air_temp(self):
-        data = self._get_response_ext([0x01, 0x0F])
+        data = self._get_response_ext([0x01, 0x0F], 1)
         return data[0] - 40
       
     def get_current_intake_air_pressure(self):
-        data = self._get_response_ext([0x01, 0x0B])
+        data = self._get_response_ext([0x01, 0x0B], 1)
         return data[0]
       
     def get_current_intake_air_mass_rate(self):
-        data = self._get_response_ext([0x01, 0x10])
+        data = self._get_response_ext([0x01, 0x10], 2)
         return ((data[0] << 8)  + data[1]) / 100
         
     def _parse_response_data(self, command, response):
