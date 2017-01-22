@@ -9,13 +9,7 @@ def main():
 
     adapter = elm.Elm(port)
     obd = obdii.Obdii(adapter)
-    
-    pids = obd.get_supported_pids(0x01)
-    
-    print >>sys.stderr, "Supported PIDs:"
-    print >>sys.stderr, pids
-    
-    
+       
     print 'UNIX time, Intake Temperature, Intake Pressure, Engine load, Engine RPM, Vehicle Speed, Coolant Temperature'
 
     while True:
