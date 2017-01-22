@@ -48,7 +48,7 @@ class Elm(object):
     def _connect(self):
         self.reset()
 
-        response = self.send_control_command('SP0')
+        response = self.send_control_command('SP 0')
         response = self.send_control_command('DP')
         self.send('0100')
         # TODO deal with multiple ECUs properly
